@@ -4,7 +4,7 @@ ActionScript source code for an interactive, animated, comic game.
 
 Code is provided for historical/educational purposes only, the last revision was made in 05/2013.
 
-## History
+## About
 
 Oddtown was a game created in 2013 and presented during the 2013 IUPUI Media Arts & Sciences Capstones. Concept, story and all artwork/illustration were created by [Bekah Crowmer](https://www.instagram.com/mushmuse/). Programming and sound design were completed by [Dean Verleger](https://github.com/deanbot) with extra UI development and animation from Brat Kelley.
 
