@@ -6,27 +6,27 @@ package
 	import com.oddtown.client.GameClient;
 	import com.oddtown.client.MenuClient;
 	import com.oddtown.engine.OddConfig;
-	
+
 	import flash.display.MovieClip;
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.display.StageScaleMode;
 	import flash.errors.IllegalOperationError;
 	import flash.events.Event;
-	
+
 	import org.osflash.signals.natives.NativeSignal;
-	
+
 	[SWF(width="1070", height="790", frameRate="25", backgroundColor="#000000")]
 	/**
 	 * Main Application File for Welcome to Oddtown.
-	 * 
+	 *
 	 * This class loads and places and handles cleanup for the:
 	 * - Logo Bumpers
 	 * - Start Menu
 	 * - Oddtown Game
-	 * 
+	 *
 	 * @author dean
-	 * 
+	 *
 	 */
 	public class Oddtown extends Sprite
 	{
@@ -38,16 +38,16 @@ package
 		// public getter/setters:
 		// public methods:
 		// private methods:
-		
+
 		private var onStage:NativeSignal;
 		private var bumper:MovieClip;
 		private var fsm:FrameScriptManager;
 		private var startMenu:MenuClient;
 		private var oddtownClient:GameClient;
-		
-		
+
+
 		private var loader:ClassLoader;
-		
+
 		public function Oddtown()
 		{
 			onStage = new NativeSignal(this,Event.ADDED_TO_STAGE, Event);
@@ -57,46 +57,45 @@ package
 		}
 
 		private function onStaged(e:Event):void
-		{	
+		{
 			onStage=null;
 			// can try different scale modes to get the effect we want.
 //			this.stage.scaleMode = StageScaleMode.SHOW_ALL;
 			this.stage.scaleMode = StageScaleMode.NO_SCALE;
-			init();	
+			init();
 			//load();
 		}
-		
+
 		private function load():void
 		{
 			loader = new ClassLoader();
 			loader.addEventListener(ClassLoader.LOAD_ERROR,loadErrorHandler);
 			loader.addEventListener(ClassLoader.CLASS_LOADED,classLoadedHandler);
-			loader.load("../SOURCE/libs/Pages_1_12_22.swc");	
+			loader.load("../SOURCE/libs/Pages_1_12_22.swc");
 		}
-		
+
 		private function loadErrorHandler(e:Event):void {
 			trace(e.type);
 			throw new IllegalOperationError("Cannot load the specified file.");
 		}
-		
+
 		private function classLoadedHandler(e:Event):void {
 			init();
 		}
-		
-		//THIS IS WHERE YOU CAN COMMENT OUT THE START MENU WHEN YOU FUCK IT UP BRAT
+
 		private function init():void
 		{
 			bekahBumper();
 //			createStartMenu();
 //			playGame();
 		}
-		
+
 		private function dreamfedBumper():void
 		{
 			bumper = new DreamfedBumper() as MovieClip;
 			fsm = new FrameScriptManager(bumper);
 			fsm.setFrameScript(bumper.totalFrames,
-				function():void { 
+				function():void {
 					bumper.stop();
 					removeChild(bumper);
 					bumper=null;
@@ -106,17 +105,17 @@ package
 			);
 			bumper.x = OddConfig.stageWidth*.5 - bumper.width*.5;
 			bumper.y = OddConfig.stageHeight*.5 - bumper.height*.5;
-			
+
 			addChild(bumper);
 		}
-		
+
 		private function bratsBumper():void
 		{
 			trace("brat")
 			bumper = new BratLogo() as MovieClip;
 			fsm = new FrameScriptManager(bumper);
 			fsm.setFrameScript(bumper.totalFrames,
-				function():void { 
+				function():void {
 					bumper.stop();
 					removeChild(bumper);
 					bumper=null;
@@ -126,17 +125,17 @@ package
 			);
 			bumper.x = OddConfig.stageWidth*.5 - bumper.width*.5;
 			bumper.y = OddConfig.stageHeight*.5 - bumper.height*.5;
-			
+
 			addChild(bumper);
 		}
-		
+
 		private function bekahBumper():void
 		{
 			trace("bekah logo")
 			bumper = new crowStudio() as MovieClip;
 			fsm = new FrameScriptManager(bumper);
 			fsm.setFrameScript(bumper.totalFrames,
-				function():void { 
+				function():void {
 					bumper.stop();
 					removeChild(bumper);
 					bumper=null;
@@ -146,10 +145,10 @@ package
 			);
 			bumper.x = OddConfig.stageWidth*.5 - bumper.width*.5;
 			bumper.y = OddConfig.stageHeight*.5 - bumper.height*.5;
-			
+
 			addChild(bumper);
 		}
-		
+
 		private function createStartMenu():void
 		{
 			startMenu = new StartMenu();
@@ -158,17 +157,17 @@ package
 			startMenu.creditsClicked.addOnce(onCreditsClicked);
 			addChild(startMenu);
 		}
-		
+
 		private function onLoadClicked():void
 		{
-			
+
 		}
-		
+
 		private function onCreditsClicked():void
 		{
-			
+
 		}
-		
+
 		private function onPlayClicked():void
 		{
 			removeChild( startMenu );
@@ -176,7 +175,7 @@ package
 			startMenu = null;
 			playGame();
 		}
-		
+
 		/**
 		 * Start Game Here
 		 */
@@ -195,7 +194,7 @@ package
 			addChild(clientMask);
 			oddtownClient.mask = clientMask;
 		}
-		
+
 		private function destroyGame():void
 		{
 			oddtownClient.lostGame.removeAll();
@@ -208,19 +207,19 @@ package
 			oddtownClient=null;
 			clientMask=null;
 		}
-		
+
 		private function onExitedToMenu():void
 		{
 			destroyGame();
 			createStartMenu();
 		}
-		
+
 		private function onBeatGame():void
 		{
 			trace("You won!");
 			onExitedToMenu();
 		}
-		
+
 		private function onLostGame():void
 		{
 			trace("You lost!");
@@ -245,15 +244,15 @@ class ClassLoader extends EventDispatcher {
 	private var swfLib:String;
 	private var request:URLRequest;
 	private var loadedClass:Class;
-	
+
 	public function ClassLoader() {
-		
+
 		loader = new Loader();
 		loader.contentLoaderInfo.addEventListener(Event.COMPLETE,completeHandler);
 		loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,ioErrorHandler);
 		loader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR,securityErrorHandler);
 	}
-	
+
 	public function load(lib:String):void {
 		swfLib = lib;
 		request = new URLRequest(swfLib);
@@ -261,7 +260,7 @@ class ClassLoader extends EventDispatcher {
 		context.applicationDomain=ApplicationDomain.currentDomain;
 		loader.load(request,context);
 	}
-	
+
 	public function getClass(className:String):Class {
 		try {
 			return loader.contentLoaderInfo.applicationDomain.getDefinition(className)  as  Class;
@@ -270,15 +269,15 @@ class ClassLoader extends EventDispatcher {
 		}
 		return null;
 	}
-	
+
 	private function completeHandler(e:Event):void {
 		dispatchEvent(new Event(ClassLoader.CLASS_LOADED));
 	}
-	
+
 	private function ioErrorHandler(e:Event):void {
 		dispatchEvent(new Event(ClassLoader.LOAD_ERROR));
 	}
-	
+
 	private function securityErrorHandler(e:Event):void {
 		dispatchEvent(new Event(ClassLoader.LOAD_ERROR));
 	}
