@@ -14,7 +14,7 @@ Welcome to Odd Town was a game created in 2013 and presented during the 2013 IUP
 
 ## Gameplay
 
-As a comic-viewer, WtOT used a viewport which moves automatically within a top down, 2D, space to show or highlight different locations on a comic page. The comic page is scaled in and out to give the illusion of a 3rd dimension or "zooming". Generally, panels are hidden or faded-out until the viewport moves to them; at which point they are reavealed and any animations in the panel are triggered. A panel animation might include speech bubble reveals, panning, simple animation of subjects, or complex frame-by-frame-animation sequences. After completing a page the user can zoom into any part of the page to get another view before changing pages. 
+As a comic-viewer, WtOT uses a topdown viewport which moves automatically within a 2-D space to highlight different locations on a comic page. The comic page is scaled in and out to give the illusion of a 3rd dimension or "zooming". Generally, panels are hidden or faded-out until the viewport moves to them; at which point they are reavealed and any animations in the panel are triggered. A panel animation might include speech bubble reveals, panning, simple animation of subjects, or complex frame-by-frame-animation sequences. After completing a page the user can zoom into any part of the page to get another view before changing pages. 
 
 In addition to linear, animation-driven progression, some panels allow point-and-click exploration, minigames, or require completion of puzzles before the user can progress. The player unlocks alternate panels depending on their actions. 
 
@@ -24,4 +24,4 @@ WtOT is fully scored with loopable music and ambient sound tracks which can stay
 
 ![oddtown moon goddess](./thumb.png)
 
-Play (with Flash Player) at [oddtown.dreamfed.net](https://oddtown.dreamfed.net).
+Play (with Flash Player) at [dreamfed.net/oddtown](https://dreamfed.net/oddtown).
